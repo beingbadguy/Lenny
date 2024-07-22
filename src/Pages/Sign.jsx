@@ -6,6 +6,8 @@ import { useContext } from "react";
 import { MasterContext } from "../context/Context";
 import { InfinitySpin } from "react-loader-spinner";
 import { Link } from "react-router-dom";
+import { CgShoppingBag } from "react-icons/cg";
+
 
 const Sign = () => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -53,11 +55,18 @@ const Sign = () => {
   };
   return (
     <div className="min-h-[70vh] flex items-center flex-col justify-center select-none">
-      <h1 className="bg-red-200 p-2">sigup</h1>
+      <div className="flex justify-center items-center">
+        <CgShoppingBag className="text-green-700 text-3xl" />
+        <Link to="/">
+          <h2 className={`font-bold sm:text-2xl ml-2 `}>Lenny.</h2>
+        </Link>
+      </div>
+      <p className="mt-3">Hi, Welcome Back!</p>
+      <p className="text-red-400 mt-2 font-medium">{error}</p>
 
       <div className=" flex items-center justify-center">
         <form
-          className="flex gap-2 flex-col w-[300px]  "
+          className="flex gap-2 flex-col w-[230px] sm:w-[250px] md:w-[300px]  "
           onSubmit={(e) => {
             SubmitHandler(e);
           }}
@@ -109,10 +118,12 @@ const Sign = () => {
           </button>
         </form>
       </div>
-      <p>
-        already have an account ? <Link to={"/login"}>Login</Link>
+      <p className="mt-4">
+        Already have an account ?{" "}
+        <Link to={"/login"} className="underline">
+          Login
+        </Link>
       </p>
-      <p className="text-red-400 mt-6 font-medium">{error}</p>
     </div>
   );
 };

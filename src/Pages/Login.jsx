@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { MasterContext } from "../context/Context";
 import { InfinitySpin } from "react-loader-spinner";
 import { Link } from "react-router-dom";
+import { CgShoppingBag } from "react-icons/cg";
 
 const Login = () => {
   const { user, setUser } = useContext(MasterContext);
@@ -27,7 +28,6 @@ const Login = () => {
         await signInWithEmailAndPassword(auth, form.email, form.password);
         const userdata = auth.currentUser;
 
-    
         setLoading(false);
         setForm({ email: "", password: "" });
       } catch (error) {
@@ -42,8 +42,16 @@ const Login = () => {
   };
   return (
     <div className="min-h-[70vh] flex items-center flex-col justify-center select-none ">
-      <h1 className="bg-red-200 p-2">Login</h1>
-      <div className=" flex items-center justify-center">
+      <div className="flex justify-center items-center">
+        <CgShoppingBag className="text-green-700 text-3xl" />
+        <Link to="/">
+          <h2 className={`font-bold sm:text-2xl ml-2 `}>Lenny.</h2>
+        </Link>
+      </div>
+      <p className="mt-3">Hi, Welcome Back!</p>
+      <p className="text-red-400 mt-2 font-medium">{error}</p>
+
+      <div className=" flex items-center justify-center w-[230px] sm:w-[250px] md:w-[300px]">
         <form
           className="flex gap-2 flex-col w-[300px]  "
           onSubmit={(e) => {
@@ -88,10 +96,13 @@ const Login = () => {
           </button>
         </form>
       </div>
-      <p>
-        create an account ? <Link to={"/signup"}> create account</Link>
+      <p className="mt-4 px-5">
+        Dont't have an account?{" "}
+        <Link to={"/signup"} className="underline">
+          {" "}
+          create account
+        </Link>
       </p>
-      <p className="text-red-400 mt-6 font-medium">{error}</p>
     </div>
   );
 };

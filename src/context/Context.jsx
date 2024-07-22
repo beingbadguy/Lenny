@@ -59,7 +59,7 @@ const MasterProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // fetchProducts();
+    fetchProducts();
     if (user) {
       // console.log(user);
     }
