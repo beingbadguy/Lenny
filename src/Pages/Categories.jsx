@@ -23,7 +23,7 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="mt-4 min-h-[62vh] mx-6">
+    <div className="mt-4 min-h-[62vh] mx-6 select-none">
       <div className="flex items-center gap-1  text-[12px] sm:text-md md:text-xl">
         <Link to={"/"} className="text-green-600">
           <p>Home</p>

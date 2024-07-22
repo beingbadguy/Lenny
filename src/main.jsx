@@ -15,6 +15,8 @@ import LayoutDashboard from "./Layout/LayoutDashboard.jsx";
 import AllProducts from "./Pages/AllProducts.jsx";
 import Single from "./Pages/Single.jsx";
 import SubCategories from "./Pages/SubCategories.jsx";
+import Login from "./Pages/Login.jsx";
+import Sign from "./Pages/Sign.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
       {
         path: "categories/:category_name",
         element: <Categories />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "Signup",
+        element: <Sign />,
       },
       {
         path: "wish",

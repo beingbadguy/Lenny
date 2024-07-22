@@ -89,7 +89,7 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className="min-h-[65vh] flex items-center justify-center  ">
+    <div className="min-h-[65vh] flex items-center justify-center select-none ">
       <div className="w-[270px] md:w-full pt-10 pb-10">
         {error && <div className="text-red-500">{error}</div>}
         <form className="flex flex-col gap-3" onSubmit={submitHandle}>

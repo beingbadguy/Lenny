@@ -10,7 +10,7 @@ import { MasterContext } from "../context/Context";
 import { IoCloseOutline } from "react-icons/io5";
 
 const Layout = () => {
-  const { products } = useContext(MasterContext);
+  const { products, user } = useContext(MasterContext);
   const [query, setQuery] = useState("");
   const [show, setShow] = useState(true);
   const [search, setSearch] = useState(false);
@@ -19,11 +19,11 @@ const Layout = () => {
   const newArr = products.filter((item) => {
     return item.name.toLowerCase().includes(query.toLowerCase());
   });
-  
+
   useEffect(() => {}, []);
 
   return (
-    <div>
+    <div className="select-none">
       <div className="flex justify-between shadow-sm  items-center p-3 sm:p-6  bg-neutral-50">
         <div className="flex justify-center items-center">
           <CgShoppingBag className="text-green-700 text-3xl" />
@@ -116,9 +116,13 @@ const Layout = () => {
           <Link to="/user">
             <IoPersonCircle className="text-2xl sm:text-3xl cursor-pointer" />
           </Link>
-          <Link to="/dashboard" className="hidden md:block">
-            <RxDashboard className="text-2xl sm:text-3xl cursor-pointer" />
-          </Link>
+          {user && user.role === "admin" ? (
+            <Link to="/dashboard" className="hidden md:block">
+              <RxDashboard className="text-2xl sm:text-3xl cursor-pointer" />
+            </Link>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <Outlet />

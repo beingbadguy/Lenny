@@ -4,7 +4,7 @@ import { MasterContext } from "../context/Context";
 const AllProducts = () => {
   const { products } = useContext(MasterContext);
   return (
-    <div className="mt-10 flex flex-col gap-10 w-[250px] sm:w-[400px] md:w-[568px] lg:w-[1100px]   ">
+    <div className="mt-10 flex flex-col gap-10 w-[250px] sm:w-[400px] md:w-[568px] lg:w-[1100px] select-none   ">
       <p className="font-bold">Total Products ({products.length})</p>
 
       {products.map((item, index) => (

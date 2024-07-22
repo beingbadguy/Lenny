@@ -34,7 +34,7 @@ const Single = () => {
   }, [id]);
 
   return (
-    <div className="min-h-[65vh] mx-6">
+    <div className="min-h-[65vh] mx-6 select-none">
       <p className="flex items-center  text-[12px] sm:text-md md:text-lg  my-10 text-green-500 font-medium">
         <Link to="/">Home</Link> <MdChevronRight />
         <Link to="/subcategories" className="hidden sm:block">

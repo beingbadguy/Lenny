@@ -9,7 +9,7 @@ import { FaHome } from "react-icons/fa";
 
 const LayoutDashboard = () => {
   return (
-    <div className="min-h-[100vh] flex gap-2 sm:gap-20">
+    <div className="min-h-[100vh] flex gap-2 sm:gap-20 select-none">
       <div className="bg-black text-white w-[70px] fixed h-full md:w-[250px] gap-10 p-6 flex flex-col ">
         <div className="flex justify-start items-center  ">
           <CgShoppingBag className="text-green-700 text-3xl" />

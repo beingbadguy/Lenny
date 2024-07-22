@@ -3,7 +3,7 @@ import { TiStarFullOutline } from "react-icons/ti";
 
 const Rating = ({ noOfStars }) => {
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-1 select-none">
       {[...Array(5)].map((_, index) => {
         index = index + 1;
         return (

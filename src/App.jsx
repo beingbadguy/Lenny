@@ -32,7 +32,7 @@ const App = () => {
   });
   useEffect(() => {}, [products]);
   return (
-    <div className="min-h-[75vh]">
+    <div className="min-h-[75vh] select-none">
       <div className="flex items-center justify-center  flex-col  ">
         <img
           src="https://img.freepik.com/premium-photo/eyeglasses-isolated-white-background-handmade-eyewear-spectacles-with-shiny-stainless-frame_149453-281.jpg?w=1480"

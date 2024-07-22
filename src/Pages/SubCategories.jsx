@@ -15,7 +15,7 @@ const SubCategories = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div className="px-6 min-h-[65vh] mb-10">
+    <div className="px-6 min-h-[65vh] mb-10 select-none">
       <div className="mt-2">
         <Slider />
       </div>
