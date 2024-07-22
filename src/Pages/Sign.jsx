@@ -8,7 +8,6 @@ import { InfinitySpin } from "react-loader-spinner";
 import { Link } from "react-router-dom";
 import { CgShoppingBag } from "react-icons/cg";
 
-
 const Sign = () => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
 
@@ -54,19 +53,23 @@ const Sign = () => {
     }
   };
   return (
-    <div className="min-h-[70vh] flex items-center flex-col justify-center select-none">
+    <div className="min-h-[80vh] flex items-center flex-col justify-center select-none ">
       <div className="flex justify-center items-center">
         <CgShoppingBag className="text-green-700 text-3xl" />
         <Link to="/">
           <h2 className={`font-bold sm:text-2xl ml-2 `}>Lenny.</h2>
         </Link>
       </div>
-      <p className="mt-3">Hi, Welcome Back!</p>
-      <p className="text-red-400 mt-2 font-medium">{error}</p>
+      <p className="mt-3 text-sm px-4 w-full flex items-center justify-center">
+        Hi, Welcome Back!
+      </p>
+      <p className="text-red-400 mt-2 font-medium text-sm pl-8 w-full flex items-center justify-start">
+        {error}
+      </p>
 
       <div className=" flex items-center justify-center">
         <form
-          className="flex gap-2 flex-col w-[230px] sm:w-[250px] md:w-[300px]  "
+          className="flex gap-2 flex-col w-[290px] sm:w-[250px] md:w-[300px]  "
           onSubmit={(e) => {
             SubmitHandler(e);
           }}
@@ -118,7 +121,7 @@ const Sign = () => {
           </button>
         </form>
       </div>
-      <p className="mt-4">
+      <p className="mt-4 text-sm px-6 w-full text-center">
         Already have an account ?{" "}
         <Link to={"/login"} className="underline">
           Login

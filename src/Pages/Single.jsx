@@ -79,15 +79,15 @@ const Single = () => {
       <div className="pt-10">
         <h1 className="text-3xl">Related Products</h1>
       </div>
-      <div className="mt-10 flex gap-2 sm:gap-6 md:gap-14    flex-wrap">
+      <div className=" mt-5 grid md:grid-cols-4 gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 mb-10">
         {products &&
           filteredProducts.map((product, index) => (
-            <div key={index} className="flex flex-col items-start">
-              <div className="bg-neutral-200 p-5 rounded relative">
+            <div key={index} className="flex flex-col items-start   ">
+              <div className="bg-neutral-200 p-5 rounded relative w-full  ">
                 <Link to={`/product/${product.id}`}>
                   <img
                     src={product.images}
-                    className="h-28 w-28  sm:h-44  sm:w-44  md:h-64 md:w-64 hover:scale-90 transition-all duration-300 "
+                    className=" h-32 w-32 md:h-48 md:w-48 lg:h-64 lg:w-64 object-contain   hover:scale-90 transition-all duration-300 "
                   />
                 </Link>
 

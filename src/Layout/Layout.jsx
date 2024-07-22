@@ -38,7 +38,7 @@ const Layout = () => {
             search ? " translate-y-[0px]  " : " translate-y-[-600px] "
           } sm:translate-y-0 absolute sm:static flex justify-center sm:w-[80%]  items-center left-12 rounded  transition-all duration-100     "`}
         >
-          <div className="sm:border-t sm:border-l sm:border-b  border-black p-2 rounded-l min-w-20  sm:flex items-center justify-center hidden ">
+          <div className="sm:border-t sm:border-l sm:border-b  border-black p-2 rounded-l min-w-20  sm:flex items-center justify-center hidden bg-neutral-100 ">
             <p>All</p>
           </div>
           <div className="sm:flex justify-between items-center bg-white  sm:border-black w-[200px]  sm:w-[300px] md:w-[330px] lg:w-[500px]  p-1 rounded-r relative sm:border-t sm:border-r sm:border-b   ">

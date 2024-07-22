@@ -42,52 +42,55 @@ const Categories = () => {
           <h1 className="p-6 text-sm sm:text-md md:text-4xl font-bold">
             Best Deals on {category_name}
           </h1>
-          <p className="hidden sm:block md:px-1 sm:tracking-[2px] lg:tracking-[6px]  mx-6">Grab the deal as soon as possible.</p>
+          <p className="hidden sm:block md:px-1 sm:tracking-[2px] lg:tracking-[6px]  mx-6">
+            Grab the deal as soon as possible.
+          </p>
         </div>
       </div>
       <div className="text-2xl font-bold mt-10 md:mt-20">
         Showing products for "{category_name}"
       </div>
-      <div className="flex items-center justify-start mt-6">
-        <div className="flex items-center justify-center">
-          {filteredProducts.length > 0 ? (
-            <div className=" flex gap-2 sm:gap-7 z-1 md:gap-14  mb-10 flex-wrap">
-              {products &&
-                filteredProducts?.map((product, index) => (
-                  <div key={index} className="flex flex-col z-1 items-start">
-                    <div className="bg-neutral-200 p-5  z-1 rounded relative">
-                      <Link to={`/product/${product.id}`}>
-                        <img
-                          src={product.images}
-                          className="h-28 w-28 sm:h-44  sm:w-44 z-1  md:h-64 md:w-64 hover:scale-90 transition-all duration-300 "
-                        />
-                      </Link>
+      <div className=" mt-5 mb-10">
+        {filteredProducts.length > 0 ? (
+          <div className="   grid grid-cols-2  sm:grid-cols-3  md:grid-cols-4   lg:grid-cols-4 gap-4">
+            {products &&
+              filteredProducts?.map((product, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col z-1 items-start "
+                >
+                  <div className="bg-neutral-200 p-5  z-1 rounded relative w-full">
+                    <Link to={`/product/${product.id}`}>
+                      <img
+                        src={product.images}
+                        className="h-28 w-28 sm:h-48  sm:w-48  z-1  md:h-72 md:w-72 object-contain hover:scale-90 transition-all duration-300 "
+                      />
+                    </Link>
 
-                      <div className="absolute top-3 right-3 bg-white h-8 w-8 flex justify-center items-center rounded-full cursor-pointer">
-                        <FaRegHeart />
-                      </div>
+                    <div className="absolute top-3 right-3 bg-white h-8 w-8 flex justify-center items-center rounded-full cursor-pointer">
+                      <FaRegHeart />
                     </div>
-                    <div className="flex items-start justify-between w-full">
-                      <p className="font-bold text-[12px] md:text-xl w-[80px] md:w-[200px]">
-                        {product.name}
-                      </p>
-                      <p className="font-bold text-green-600 text-[12px] md:text-xl">
-                        ₹{product.price}
-                      </p>
-                    </div>
-                    <p className="text-neutral-400 text-[12px] md:text-xl">
-                      {product.location}
-                    </p>
-                    <Rating noOfStars={product.rating} />
                   </div>
-                ))}
-            </div>
-          ) : (
-            <div className="flex justify-center items-center h-[50vh] font-medium text-red-500">
-              "No products found for this category."
-            </div>
-          )}
-        </div>
+                  <div className="flex items-start justify-between w-full">
+                    <p className="font-bold text-[12px] md:text-xl w-[80px] md:w-[200px]">
+                      {product.name}
+                    </p>
+                    <p className="font-bold text-green-600 text-[12px] md:text-xl">
+                      ₹{product.price}
+                    </p>
+                  </div>
+                  <p className="text-neutral-400 text-[12px] md:text-xl">
+                    {product.location}
+                  </p>
+                  <Rating noOfStars={product.rating} />
+                </div>
+              ))}
+          </div>
+        ) : (
+          <div className="flex justify-center items-center h-[50vh] font-medium text-red-500">
+            "No products found for this category."
+          </div>
+        )}
       </div>
     </div>
   );

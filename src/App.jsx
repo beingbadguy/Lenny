@@ -30,10 +30,12 @@ const App = () => {
   const categories = products.map((item) => {
     return item.category;
   });
+
+  const productsNew = products.slice(0, 6);
   useEffect(() => {}, [products]);
   return (
     <div className="min-h-[75vh] select-none">
-      <div className="flex items-center justify-center  flex-col  ">
+      <div className="flex items-center justify-center mt-10  flex-col-reverse sm:mt-0 sm:flex-col ">
         <img
           src="https://img.freepik.com/premium-photo/eyeglasses-isolated-white-background-handmade-eyewear-spectacles-with-shiny-stainless-frame_149453-281.jpg?w=1480"
           alt=""
@@ -49,12 +51,12 @@ const App = () => {
             more. Shop now for quality products at unbeatable prices. Fast
             shipping and secure checkout guaranteed!
           </p>
-          <div className="flex items-center gap-5 justify-between">
+          <div className="flex flex-col sm:flex-row items-center gap-5 justify-between">
             <Link to={"product/tP2AMgOYIJtuasYc0v8i"}>
               <Button
                 text="Buy Now"
                 clr="text-white"
-                bgclr="bg-green-700 w-[120px]"
+                bgclr="bg-green-700 w-[320px]  sm:w-[240px]"
               />
             </Link>
 
@@ -62,7 +64,7 @@ const App = () => {
               <Button
                 text="Explore More"
                 clr="text-black"
-                bgclr="border border-green-500"
+                bgclr="border border-green-500 w-[320px] sm:w-[240px]"
               />
             </Link>
           </div>
@@ -75,7 +77,7 @@ const App = () => {
         <div className="flex justify-between items-center">
           <h1 className="text-2xl md:text-4xl font-bold">Featured Category</h1>
         </div>
-        <div className="mt-10 gap-10 flex overflow-scroll md:flex-wrap mb-5 sm:overflow-auto flex-row  md:gap-10 ">
+        <div className="mt-10 gap-6 flex overflow-scroll  sm:grid sm:grid-cols-3 md:grid-cols-4 mb-5 sm:overflow-visible   mx-4 ">
           <Link to={`/categories/electronics`}>
             <CategoryBox
               type="Electronics"
@@ -172,15 +174,15 @@ const App = () => {
         <h1 className="text-4xl font-bold text-center mx-10">
           Popular Products on Lenny.
         </h1>
-        <div className="mt-10 flex gap-6 sm:gap-7 md:gap-14 mx-4 md:mx-10 flex-wrap">
+        <div className=" grid grid-cols-2  sm:grid-cols-3  md:grid-cols-4   lg:grid-cols-5 gap-4 px-6 mt-4">
           {products &&
-            products.map((product, index) => (
-              <div key={index} className="flex flex-col items-start">
-                <div className="bg-neutral-200 p-5 rounded relative">
+            productsNew.map((product, index) => (
+              <div key={index} className="flex flex-col items-start ">
+                <div className="bg-neutral-200 p-5 rounded relative w-full">
                   <Link to={`product/${product.id}`}>
                     <img
                       src={product.images}
-                      className="h-28 w-28 sm:h-44  sm:w-44  md:h-64 md:w-64 hover:scale-90 transition-all duration-300 "
+                      className="h-36 sm:h-48  sm:w-48  md:h-64 md:w-64 lg:w-72 lg:h-72 object-contain hover:scale-90 transition-all duration-300 "
                     />
                   </Link>
 

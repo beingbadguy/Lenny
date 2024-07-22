@@ -28,7 +28,7 @@ const SubCategories = () => {
         {[...new Set(categories)].map((item, index) => (
           <div
             key={index}
-            className="bg-green-400 mt-4 p-2 text-black font-medium rounded hover:bg-green-700 transition-all duration-300"
+            className="bg-green-300 mt-4 p-2 text-black font-medium rounded hover:bg-green-100 transition-all duration-300"
           >
             <Link to={`/categories/${item}`}>
               <p>{item}</p>
