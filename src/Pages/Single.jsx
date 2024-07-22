@@ -1,0 +1,117 @@
+import { collection, doc, getDoc } from "firebase/firestore";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { db } from "../config/firebase";
+import { MdChevronRight } from "react-icons/md";
+import Rating from "../components/Rating";
+import Button from "../components/Button";
+import { CiShoppingCart } from "react-icons/ci";
+import { MasterContext } from "../context/Context";
+import { FaRegHeart } from "react-icons/fa";
+
+const Single = () => {
+  const { products } = useContext(MasterContext);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [product, setProduct] = useState();
+
+  // console.log(id);
+  const fetchProduct = async () => {
+    const producctRef = doc(db, "products", id);
+    const response = await getDoc(producctRef);
+    // console.log(response.data());
+    setProduct(response.data());
+  };
+
+  const filteredProducts = products.filter((item) => {
+    return item?.id !== id;
+  });
+  // console.log(filteredProducts);
+  useEffect(() => {
+    fetchProduct();
+    window.scrollTo(0, 0);
+    return () => {};
+  }, [id]);
+
+  return (
+    <div className="min-h-[65vh] mx-6">
+      <p className="flex items-center  text-[12px] sm:text-md md:text-lg  my-10 text-green-500 font-medium">
+        <Link to="/">Home</Link> <MdChevronRight />
+        <Link to="/subcategories" className="hidden sm:block">
+          Categories
+        </Link>{" "}
+        <MdChevronRight className="hidden sm:block" />
+        <Link to={`/categories/${product?.category}`}>{product?.category}</Link>
+        <MdChevronRight /> <span className="text-black">{product?.name}</span>
+      </p>
+      <div className="flex flex-col md:flex-row justify-start gap-6 md:gap-[2%] ">
+        <div className="bg-neutral-200 p-6 md:w-[600px] md:h-[300px] flex justify-center items-center ">
+          <img
+            src={product?.images}
+            alt=""
+            className=" h-36 w-36 md:h-64 md:w-64"
+          />
+        </div>
+        <div className="flex flex-col gap-2 md:gap-5  ">
+          <p className="font-bold text-xl md:text-4xl">{product?.name}</p>
+          <Rating noOfStars={product?.rating} />
+          <p className="font-bold text-2xl text-green-400">₹{product?.price}</p>
+          <p className="md:w-[90%]">{product?.description}</p>
+          <hr className="hidden md:flex border border-neutral-100" />
+          <div className="flex gap-5 font-medium mt-8 md:mt-10">
+            <Button
+              clr="text-white"
+              bgclr="bg-green-600 w-[200px]"
+              text="Buy now"
+            />
+            <div className="flex items-center justify-center w-[200px] border border-green-600 rounded text-green-600 hover:scale-90 transition-all duration-500">
+              <CiShoppingCart className="text-2xl" />
+              <Button
+                clr="text-green-600"
+                bgclr="bg-white "
+                text="Add to cart"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr className="mt-10" />
+      <div className="pt-10">
+        <h1 className="text-3xl">Related Products</h1>
+      </div>
+      <div className="mt-10 flex gap-2 sm:gap-6 md:gap-14    flex-wrap">
+        {products &&
+          filteredProducts.map((product, index) => (
+            <div key={index} className="flex flex-col items-start">
+              <div className="bg-neutral-200 p-5 rounded relative">
+                <Link to={`/product/${product.id}`}>
+                  <img
+                    src={product.images}
+                    className="h-28 w-28  sm:h-44  sm:w-44  md:h-64 md:w-64 hover:scale-90 transition-all duration-300 "
+                  />
+                </Link>
+
+                <div className="absolute top-3 right-3 bg-white h-8 w-8 flex justify-center items-center rounded-full cursor-pointer">
+                  <FaRegHeart />
+                </div>
+              </div>
+              <div className="flex items-start justify-between w-full">
+                <p className="font-bold text-[12px] md:text-xl w-[80px] md:w-[200px]">
+                  {product.name}
+                </p>
+                <p className="font-bold text-green-600 text-[12px] md:text-xl">
+                  ₹{product.price}
+                </p>
+              </div>
+              <p className="text-neutral-400 text-[12px] md:text-xl">
+                {product.location}
+              </p>
+              <Rating noOfStars={product.rating} />
+            </div>
+          ))}
+      </div>
+    </div>
+  );
+};
+
+export default Single;
