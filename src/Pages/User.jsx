@@ -33,7 +33,7 @@ const User = () => {
                 className="h-20 w-20 object-cover rounded-full mt-10"
               />
               <p className="font-bold"> Hi, {user.name.toUpperCase()}</p>
-              <p className="w-[200px]">{user.email}</p>
+              <p className="w-[200px] text-center">{user.email}</p>
 
               <div
                 className=" p-2 cursor-pointer absolute top-0 right-0 m-2"

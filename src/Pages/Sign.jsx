@@ -5,7 +5,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { useContext } from "react";
 import { MasterContext } from "../context/Context";
 import { InfinitySpin } from "react-loader-spinner";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CgShoppingBag } from "react-icons/cg";
 
 const Sign = () => {
@@ -14,6 +14,8 @@ const Sign = () => {
   const [error, setError] = useState("");
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
 
   const formHandler = (e) => {
     const { name, value } = e.target;
@@ -28,7 +30,7 @@ const Sign = () => {
         setLoading(true);
         await createUserWithEmailAndPassword(auth, form.email, form.password);
         const userdata = auth.currentUser;
-        console.log(userdata);
+        // console.log(userdata);
         if (userdata) {
           await setDoc(doc(db, "users", userdata.uid), {
             name: form.name,
@@ -42,6 +44,8 @@ const Sign = () => {
         }
         setLoading(false);
         setForm({ name: "", email: "", password: "" });
+        navigate("/");
+
       } catch (error) {
         setLoading(false);
 
