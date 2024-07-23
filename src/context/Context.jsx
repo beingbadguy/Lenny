@@ -1,8 +1,16 @@
 import { createContext, useEffect, useState } from "react";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 import { InfinitySpin } from "react-loader-spinner";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 export const MasterContext = createContext();
 
@@ -10,14 +18,78 @@ const MasterProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-
+  const [fav, setFav] = useState([]);
+  const [cart, setCart] = useState([]);
+  // console.table(cart);
   const fetchUser = async (user) => {
     if (user) {
       const useRef = doc(db, "users", user.uid);
       const docRef = await getDoc(useRef);
       const tempUser = docRef.data();
       setUser(tempUser);
+      setFav(tempUser.favourites);
+      setCart(tempUser.carts);
       localStorage.setItem("user", JSON.stringify(tempUser));
+    }
+  };
+
+  const addToFavourites = async (product) => {
+    // console.log(product);
+    if (!user) {
+      // alert("Please sign in to add items to your favourites");
+
+      return;
+    }
+    try {
+      const collectionRef = doc(db, "users", user.userId);
+      const userDoc = await getDoc(collectionRef);
+      const userNew = userDoc.data();
+      setFav(userNew.favourites);
+
+      const response = fav.some((item) => item.id === product.id);
+      console.log(response);
+      if (response) {
+        return;
+      } else {
+        await updateDoc(collectionRef, {
+          favourites: arrayUnion(product),
+        });
+        setFav((prevFav) => [...prevFav, product]);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const addToCart = async (product) => {
+    // console.log(product);
+    if (!user) {
+      // alert("Please sign in to add items to your cart");
+      return;
+    }
+    try {
+      const collectionRef = doc(db, "users", user.userId);
+      const userDoc = await getDoc(collectionRef);
+      const userNew = userDoc.data();
+      setCart(userNew.carts);
+
+      const response = cart.filter((item) => {
+        item.name.includes(product.name);
+      });
+      console.log(response.length);
+
+      if (response.length > 0) {
+        console.log("already Exists in Cart");
+      } else {
+        await updateDoc(collectionRef, {
+          carts: arrayUnion({ ...product }),
+        });
+        setCart((prevCart) => [...prevCart, product]);
+        console.log(cart);
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -60,14 +132,22 @@ const MasterProvider = ({ children }) => {
 
   useEffect(() => {
     fetchProducts();
-    if (user) {
-      // console.log(user);
-    }
   }, []);
 
   return (
     <MasterContext.Provider
-      value={{ products, fetchProducts, user, setUser, logout }}
+      value={{
+        products,
+        fetchProducts,
+        user,
+        setUser,
+        logout,
+        fav,
+        setFav,
+        addToFavourites,
+        addToCart,
+        cart,
+      }}
     >
       {children}
     </MasterContext.Provider>

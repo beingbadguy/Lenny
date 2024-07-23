@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sign from "./Sign";
 import Login from "./Login";
 import { useContext } from "react";
@@ -10,6 +10,11 @@ import { CiLogout } from "react-icons/ci";
 const User = () => {
   const { user, logout } = useContext(MasterContext);
   // console.log(user);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className=" min-h-[75vh] w-full  select-none  pt-4">
       {user && (
@@ -39,6 +44,7 @@ const User = () => {
                 className=" p-2 cursor-pointer absolute top-0 right-0 m-2"
                 onClick={() => {
                   logout();
+                  window.location.reload();
                 }}
               >
                 <CiLogout />

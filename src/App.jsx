@@ -15,7 +15,7 @@ import { MdMiscellaneousServices } from "react-icons/md";
 import { FaMobileAlt } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import Rating from "./components/Rating";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaKitchenSet } from "react-icons/fa6";
 import { GiMedicines } from "react-icons/gi";
 import { IoIosFootball } from "react-icons/io";
@@ -24,18 +24,26 @@ import { SiLibreofficewriter } from "react-icons/si";
 import { MdOutlinePets } from "react-icons/md";
 import { FaCarrot } from "react-icons/fa6";
 import { GiWoodBeam } from "react-icons/gi";
+import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "./config/firebase";
 
 const App = () => {
-  const { products } = useContext(MasterContext);
+  const { fetchProducts, products, user, fav, setFav, addToFavourites } =
+    useContext(MasterContext);
   const categories = products.map((item) => {
     return item.category;
   });
+  const navigate = useNavigate();
 
   const productsNew = products.slice(0, 6);
-  useEffect(() => {}, [products]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   return (
     <div className="min-h-[75vh] select-none">
-      <div className="flex items-center justify-center mt-10  flex-col-reverse sm:mt-0 sm:flex-col ">
+      <div className="flex items-center justify-center mt-10  flex-col sm:mt-0 sm:flex-col ">
         <img
           src="https://img.freepik.com/premium-photo/eyeglasses-isolated-white-background-handmade-eyewear-spectacles-with-shiny-stainless-frame_149453-281.jpg?w=1480"
           alt=""
@@ -165,7 +173,7 @@ const App = () => {
         </div>
       </div>
       {/* Slider  */}
-      <div className="flex items-center justify-center p-4">
+      <div className="flex items-center justify-center mt-10 p-4">
         <Slider />
       </div>
 
@@ -174,7 +182,7 @@ const App = () => {
         <h1 className="text-4xl font-bold text-center mx-10">
           Popular Products on Lenny.
         </h1>
-        <div className=" grid grid-cols-2  sm:grid-cols-3  md:grid-cols-4   lg:grid-cols-5 gap-4 px-6 mt-4">
+        <div className=" grid grid-cols-2  sm:grid-cols-3  md:grid-cols-4 mb-20  lg:grid-cols-5 gap-4 px-6 mt-4">
           {products &&
             productsNew.map((product, index) => (
               <div key={index} className="flex flex-col items-start ">
@@ -186,8 +194,25 @@ const App = () => {
                     />
                   </Link>
 
-                  <div className="absolute top-3 right-3 bg-white h-8 w-8 flex justify-center items-center rounded-full cursor-pointer">
-                    <FaRegHeart />
+                  <div
+                    className="absolute top-3 right-3 bg-white h-8 w-8 flex justify-center items-center rounded-full cursor-pointer"
+                    onClick={() => {
+                      if (user) {
+                        addToFavourites(product);
+                      } else {
+                        navigate("/user");
+                      }
+                    }}
+                  >
+                    <FaRegHeart
+                      className={`${
+                        fav &&
+                        user &&
+                        fav.some((item) => item.id === product.id)
+                          ? "text-red-500 "
+                          : "text-green-500"
+                      }`}
+                    />
                   </div>
                 </div>
                 <div className="flex items-start justify-between w-full">
@@ -209,26 +234,25 @@ const App = () => {
 
       {/* banner
        */}
-      <div className="mb-20 my-20 px-20 hidden md:flex md:items-center md:justify-end bg-green-100 ">
-        <div className="p-4  absolute  flex justify-center items-center rounded">
-          <img src="./watch.png" alt="" className="h-72 w-72" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 bg-green-100 items-center justify-items-center mb-20 gap-4 px-10 py-4 ">
+        <div className=" ">
+          <img
+            src="./watch.png"
+            alt=""
+            className=" h-24 w-24 sm:h-48 sm:w-48 md:h-64 md:w-64 lg:h-72 lg:w-72"
+          />
         </div>
-        <div className="mx-20 p-4 flex flex-col gap-4 w-full items-center md:justify-start md:items-start  ">
-          <h1 className="text-2xl md:text-4xl font-bold text-black text-center">
+        <div className="text-center">
+          <h1 className=" text-xl sm:text-2xl">
             Upgrade Your Wardrobe With Our Collection
           </h1>
-          <p className="text-black md:w-[600px] text-center">
+          <p className="mt-4">
             Discover amazing deals on fashion, electronics, home essentials, and
-            more. Shop now for quality products at unbeatable prices. Fast
-            shipping and secure checkout guaranteed!
+            more.
           </p>
-          <div className="flex items-center gap-5 justify-between">
-            <Button text="Buy Now" clr="text-white" bgclr="bg-green-700" />
-            <Button
-              text="View Details"
-              clr="text-black"
-              bgclr="border border-green-500"
-            />
+          <div className="sm:grid sm:grid-cols-2 grid  gap-2 mt-3">
+            <Button clr="text-white bg-green-500" />
+            <Button clr="text-black bg-transparent border-black border" />
           </div>
         </div>
       </div>

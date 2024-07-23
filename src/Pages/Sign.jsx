@@ -7,6 +7,8 @@ import { MasterContext } from "../context/Context";
 import { InfinitySpin } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import { CgShoppingBag } from "react-icons/cg";
+import { LuEye } from "react-icons/lu";
+import { LuEyeOff } from "react-icons/lu";
 
 const Sign = () => {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
@@ -15,6 +17,8 @@ const Sign = () => {
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+
 
 
   const formHandler = (e) => {
@@ -101,15 +105,32 @@ const Sign = () => {
           />
           <label>Password</label>
 
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={(e) => {
-              formHandler(e);
-            }}
-            className="border border-black outline-green-500 p-2 rounded"
-          />
+          <div className="relative">
+            <input
+              type={show ? "text" : "password"}
+              name="password"
+              value={form.password}
+              onChange={(e) => {
+                formHandler(e);
+              }}
+              className="border border-black outline-green-500 p-2 w-full rounded"
+            />
+            {show ? (
+              <LuEye
+                className="absolute top-[30%] right-2"
+                onClick={() => {
+                  setShow(!show);
+                }}
+              />
+            ) : (
+              <LuEyeOff
+                className="absolute top-[30%] right-2"
+                onClick={() => {
+                  setShow(!show);
+                }}
+              />
+            )}
+          </div>
           <button className=" border rounded bg-green-500 p-2 flex items-center justify-center">
             {loading ? (
               <InfinitySpin

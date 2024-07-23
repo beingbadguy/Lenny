@@ -82,9 +82,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <MasterProvider>
-      <RouterProvider router={router} />
-    </MasterProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <MasterProvider>
+    <RouterProvider router={router} />
+  </MasterProvider>
+  // </React.StrictMode>
 );

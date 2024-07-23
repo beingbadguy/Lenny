@@ -11,18 +11,23 @@ import { FaRegHeart } from "react-icons/fa";
 import { InfinitySpin } from "react-loader-spinner";
 
 const Single = () => {
-  const { products } = useContext(MasterContext);
+  const { products, fav, addToFavourites, user, addToCart, cart, setCart } =
+    useContext(MasterContext);
+
+  // console.log(cart);
+
   const { id } = useParams();
+  // console.log(id);
   const navigate = useNavigate();
   const [product, setProduct] = useState();
   const [loader, setLoader] = useState(false);
 
-  // console.log(id);
+  // console.log(product);
+
   const fetchProduct = async () => {
     setLoader(true);
     const producctRef = doc(db, "products", id);
     const response = await getDoc(producctRef);
-    // console.log(response.data());
     setProduct(response.data());
     setLoader(false);
   };
@@ -30,12 +35,14 @@ const Single = () => {
   const filteredProducts = products.filter((item) => {
     return item?.id !== id;
   });
-  // console.log(filteredProducts);
   useEffect(() => {
     fetchProduct();
     window.scrollTo(0, 0);
+    if (user) {
+      // console.log(cart);
+    }
     return () => {};
-  }, [id]);
+  }, [id, cart, setCart, addToCart]);
 
   return (
     <div className="min-h-[65vh] mx-6 select-none">
@@ -49,7 +56,7 @@ const Single = () => {
         <MdChevronRight /> <span className="text-black">{product?.name}</span>
       </p>
       {!loader ? (
-        <div className="flex flex-col md:flex-row justify-start gap-6 md:gap-[2%] ">
+        <div className="flex flex-col md:flex-row justify-start gap-4 md:gap-[2%] ">
           <div className="bg-neutral-200 p-6 md:w-[600px] md:h-[300px] flex justify-center items-center ">
             <img
               src={product?.images}
@@ -63,20 +70,45 @@ const Single = () => {
             <p className="font-bold text-2xl text-green-400">
               ₹{product?.price}
             </p>
+            <p className="text-neutral-500">{product?.location}</p>
+
             <p className="md:w-[90%]">{product?.description}</p>
             <hr className="hidden md:flex border border-neutral-100" />
             <div className="flex gap-5 font-medium mt-8 md:mt-10">
-              <Button
-                clr="text-white"
-                bgclr="bg-green-600 w-[200px]"
-                text="Buy now"
-              />
-              <div className="flex items-center justify-center w-[200px] border border-green-600 rounded text-green-600 hover:scale-90 transition-all duration-500">
+              <div
+                onClick={() => {
+                  console.log("Working on this functionality", product.id);
+                }}
+              >
+                <Button
+                  clr="text-white"
+                  bgclr="bg-green-600 w-[140px] md:w-[200px]"
+                  text="Buy now"
+                />
+              </div>
+
+              <div
+                className="flex items-center justify-center w-[200px] border border-green-600 rounded text-green-600 hover:scale-90 transition-all duration-500"
+                onClick={() => {
+                  if (
+                    cart &&
+                    cart.some((item) => item?.name === product?.name)
+                  ) {
+                    navigate(`/cart`);
+                  } else {
+                    addToCart(product);
+                  }
+                }}
+              >
                 <CiShoppingCart className="text-2xl" />
                 <Button
                   clr="text-green-600"
-                  bgclr="bg-white "
-                  text="Add to cart"
+                  bgclr="bg-white"
+                  text={
+                    cart && cart.some((item) => item?.name === product?.name)
+                      ? "Added to cart"
+                      : "Add to cart"
+                  }
                 />
               </div>
             </div>
@@ -110,8 +142,23 @@ const Single = () => {
                   />
                 </Link>
 
-                <div className="absolute top-3 right-3 bg-white h-8 w-8 flex justify-center items-center rounded-full cursor-pointer">
-                  <FaRegHeart />
+                <div
+                  className="absolute top-3 right-3 bg-white h-8 w-8 flex justify-center items-center rounded-full cursor-pointer"
+                  onClick={() => {
+                    if (user) {
+                      addToFavourites(product);
+                    } else {
+                      navigate("/user");
+                    }
+                  }}
+                >
+                  <FaRegHeart
+                    className={`${
+                      fav && user && fav.some((item) => item.id === product.id)
+                        ? "text-red-500 "
+                        : "text-green-500"
+                    }`}
+                  />
                 </div>
               </div>
               <div className="flex items-start justify-between w-full">

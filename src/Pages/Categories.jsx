@@ -8,7 +8,7 @@ import Rating from "../components/Rating";
 import Slider from "../components/Slider";
 
 const Categories = () => {
-  const { products } = useContext(MasterContext);
+  const { products, fav, addToFavourites, user } = useContext(MasterContext);
   const { category_name } = useParams();
   // console.log(category_name);
 
@@ -55,10 +55,7 @@ const Categories = () => {
           <div className="   grid grid-cols-2  sm:grid-cols-3  md:grid-cols-4   lg:grid-cols-4 gap-4">
             {products &&
               filteredProducts?.map((product, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col z-1 items-start "
-                >
+                <div key={index} className="flex flex-col z-1 items-start ">
                   <div className="bg-neutral-200 p-5  z-1 rounded relative w-full">
                     <Link to={`/product/${product.id}`}>
                       <img
@@ -67,8 +64,25 @@ const Categories = () => {
                       />
                     </Link>
 
-                    <div className="absolute top-3 right-3 bg-white h-8 w-8 flex justify-center items-center rounded-full cursor-pointer">
-                      <FaRegHeart />
+                    <div
+                      className="absolute top-3 right-3 bg-white h-8 w-8 flex justify-center items-center rounded-full cursor-pointer"
+                      onClick={() => {
+                         if (user) {
+                           addToFavourites(product);
+                         } else {
+                           navigate("/user");
+                         }
+                      }}
+                    >
+                      <FaRegHeart
+                        className={`${
+                          fav &&
+                          user &&
+                          fav.some((item) => item.id === product.id)
+                            ? "text-red-500 "
+                            : "text-green-500"
+                        }`}
+                      />
                     </div>
                   </div>
                   <div className="flex items-start justify-between w-full">

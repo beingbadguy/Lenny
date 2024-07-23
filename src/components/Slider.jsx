@@ -33,7 +33,9 @@ const Slider = () => {
           />
         </div>
 
-        <div className="flex">
+        <div
+          className="flex transition-transform duration-500 ease-in-out"
+        >
           {images.map((image, index) => (
             <img
               src={image}
