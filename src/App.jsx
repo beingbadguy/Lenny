@@ -76,7 +76,7 @@ const App = () => {
               />
             </Link>
           </div>
-          {/* <h1 className="font-bold text-7xl tracking-[10px] ">Lenny.</h1> */}
+          {/* <h1 className="font-bold text-7xl tracking-[10px] ">Amy.</h1> */}
         </div>
       </div>
 
@@ -180,7 +180,7 @@ const App = () => {
       {/* products  */}
       <div className="mt-10 mb-10  flex items-start justify-center flex-col">
         <h1 className="text-4xl font-bold text-center mx-10">
-          Popular Products on Lenny.
+          Popular Products on Amy.
         </h1>
         <div className=" grid grid-cols-2  sm:grid-cols-3  md:grid-cols-4 mb-20  lg:grid-cols-5 gap-4 px-6 mt-4">
           {products &&

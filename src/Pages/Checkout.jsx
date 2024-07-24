@@ -1,11 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdChevronRight } from "react-icons/md";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import React, { useContext, useEffect, useState } from "react";
 import { MasterContext } from "../context/Context";
 import { GoPlus } from "react-icons/go";
 import { FiMinus } from "react-icons/fi";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  documentId,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../config/firebase";
 import Button from "../components/Button";
 import { IoLocationSharp } from "react-icons/io5";
@@ -14,7 +22,7 @@ import { InfinitySpin } from "react-loader-spinner";
 import { MdLocalPhone } from "react-icons/md";
 
 const Cart = () => {
-  const { cart, user, cartRemove, setCart, products } =
+  const { cart, user, cartRemove, setCart, products, orderid, setOrderid } =
     useContext(MasterContext);
   const [total, setTotal] = useState([]);
   const [add, setAddress] = useState();
@@ -26,6 +34,8 @@ const Cart = () => {
     mobile: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -35,7 +45,7 @@ const Cart = () => {
     e.preventDefault();
 
     if (!user) {
-      return Navigate("/login");
+      return navigate("/login");
     }
     if (
       form.address != "" &&
@@ -66,6 +76,42 @@ const Cart = () => {
       }
     } else {
       setError("Please enter valid address and mobile number");
+    }
+  };
+
+  const orderHandler = async () => {
+    if (!user) {
+      return navigate("/login");
+    }
+
+    try {
+      const colRef = doc(db, "users", user.userId);
+      const snapshot = await getDoc(colRef);
+      if (snapshot.exists()) {
+        const userData = snapshot.data();
+        const userCart = userData.carts || [];
+        // console.log(userCart);
+
+        const NewCol = collection(db, "orders");
+        const newOrder = await addDoc(NewCol, {
+          userId: user.userId,
+          items: userCart,
+          createdAt: new Date(),
+          amount: total,
+          status: "unfullfilled",
+        });
+        const orderId = newOrder.id;
+
+        await updateDoc(colRef, {
+          orders: arrayUnion(orderId),
+          carts: [],
+        });
+        setCart([]);
+        setOrderid(newOrder.id);
+      }
+      navigate("/order");
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
@@ -115,13 +161,15 @@ const Cart = () => {
                   : "shadow-md mx-auto w-[90%] sm-[100%] md:w-[100%] mt-[-5vh] bg-white rounded-lg border mb-20 p-4"
               } `}
             >
-              <p className="font-bold">Shipping Address</p>
+              <div className="flex items-center justify-between">
+                <p className="font-bold">Shipping Address</p>
+              </div>
               {user.address.length > 1 ? (
                 <div>
-                  <div className="mt-4 flex justify-between items-start gap-4">
-                    <div className="flex gap-4">
-                      <IoLocationSharp className="mt-1 text-xl text-green-600" />
-                      <div>
+                  <div className="mt-4 flex  flex-col sm:flex-row justify-between items-start gap-4">
+                    <div className="flex gap-4 ">
+                      <IoLocationSharp className="mt-1 text-2xl  text-green-600 " />
+                      <div className="">
                         <p className="font-semibold">{user.name},</p>
                         <p className="font-thin">{user.address}</p>
                         {user.mobile && user.mobile ? (
@@ -234,7 +282,18 @@ const Cart = () => {
                   Grand Price : <span>₹{total}</span>
                 </p>
               </div>
-              <Link to={""}>
+              <div className="flex items-center justify-between">
+                <p className="text-sm">Order Type</p>
+                <p>
+                  <span>COD</span>
+                </p>
+              </div>
+              <Link
+                to={""}
+                onClick={() => {
+                  orderHandler();
+                }}
+              >
                 <Button clr="bg-green-600 text-white" text="Place order" />
               </Link>
             </div>

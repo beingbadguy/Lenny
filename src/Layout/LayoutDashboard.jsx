@@ -15,7 +15,7 @@ const LayoutDashboard = () => {
           <CgShoppingBag className="text-green-700 text-3xl" />
           <Link to="/">
             <h2 className="font-bold ml-[-10px] md:ml-0 text-[14px] md:text-2xl">
-              Lenny.
+              Amy.
             </h2>
           </Link>
         </div>

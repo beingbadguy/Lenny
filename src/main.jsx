@@ -18,6 +18,7 @@ import SubCategories from "./Pages/SubCategories.jsx";
 import Login from "./Pages/Login.jsx";
 import Sign from "./Pages/Sign.jsx";
 import Checkout from "./Pages/Checkout.jsx";
+import Order from "./Pages/Order.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "/checkout",
         element: <Checkout />,
+      },
+      {
+        path: "/order",
+        element: <Order />,
       },
 
       {

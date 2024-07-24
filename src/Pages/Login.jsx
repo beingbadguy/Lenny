@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth, db } from "../config/firebase";
 import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { useContext } from "react";
@@ -46,12 +46,19 @@ const Login = () => {
       setError("Please fill all the fields");
     }
   };
+
+
+  useEffect(() => {
+    if (user) {
+      return navigate("/");
+    }
+  }, []);
   return (
     <div className="min-h-[80vh] flex items-center flex-col justify-center select-none  ">
       <div className="flex justify-center items-center">
         <CgShoppingBag className="text-green-700 text-3xl" />
         <Link to="/">
-          <h2 className={`font-bold sm:text-2xl ml-2 `}>Lenny.</h2>
+          <h2 className={`font-bold sm:text-2xl ml-2 `}>Amy.</h2>
         </Link>
       </div>
       <p className="mt-3  text-sm  px-4 w-full flex items-center justify-center">

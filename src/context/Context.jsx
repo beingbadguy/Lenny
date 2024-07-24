@@ -19,6 +19,8 @@ const MasterProvider = ({ children }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [fav, setFav] = useState([]);
   const [cart, setCart] = useState([]);
+
+  const [orderid, setOrderid] = useState(null);
   // console.table(cart);
   const fetchUser = async (user) => {
     if (user) {
@@ -240,6 +242,8 @@ const MasterProvider = ({ children }) => {
         setCart,
         deleteFromFav,
         cartRemove,
+        orderid,
+        setOrderid,
       }}
     >
       {children}

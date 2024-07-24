@@ -8,6 +8,8 @@ import { IoPersonCircle } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
 import { MasterContext } from "../context/Context";
 import { IoCloseOutline } from "react-icons/io5";
+import { FaInstagram } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 
 const Layout = () => {
   const { products, user, fav, cart } = useContext(MasterContext);
@@ -29,7 +31,7 @@ const Layout = () => {
           <CgShoppingBag className="text-green-700 text-3xl" />
           <Link to="/">
             <h2 className={`font-bold sm:text-2xl ${search ? "hidden" : ""} `}>
-              Lenny.
+              Amy.
             </h2>
           </Link>
         </div>
@@ -50,7 +52,7 @@ const Layout = () => {
                 setQuery(e.target.value);
                 setShow(true);
               }}
-              placeholder="Search anything on lenny..."
+              placeholder="Search anything on Amy..."
               className="outline-none sm:px-2 sm:py-1 w-[190px]   sm:w-[300px] md:w-[330px]  lg:w-[530px] overflow-hidden"
             />
             <CiSearch className=" text-3xl hidden md:block  cursor-pointer" />
@@ -133,52 +135,33 @@ const Layout = () => {
         </div>
       </div>
       <Outlet />
-      <div className="flex flex-wrap items-start justify-evenly  bg-[#e8e9ea65] py-8 gap-3 px-5 text-sm">
-        <div className="flex flex-col items-start w-[300px]">
-          <div className="flex justify-center items-center">
-            <CgShoppingBag className="text-green-700 text-2xl" />
-            <h2 className="font-bold">Lenny.</h2>
+      <div className="grid grid-cols-1  bg-[#e8e9ea65] py-8 gap-3 px-5 ">
+        <div className="grid grid-cols-1  ">
+          <div className="flex flex-col items-start w-[300px]">
+            <div className="flex justify-center items-center">
+              <CgShoppingBag className="text-green-700 text-2xl" />
+              <h2 className="font-bold">Amy.</h2>
+            </div>
+            <p className="text-sm">
+              The biggest marketplace managed by Ideologist corp, which provides
+              various kinds of daily needs and hobbies
+            </p>
           </div>
-          <p>
-            The biggest marketplace managed by Ideologist corp, which provides
-            various kinds of daily needs and hobbies
-          </p>
         </div>
-        <div>
-          <p className="font-bold">About lenny</p>
-          <ul>
-            <li>Information</li>
-            <li>Store lactor</li>
-            <li>Bulk Purchase</li>
-            <li>Alteration services</li>
-          </ul>
+
+        <div className="flex gap-2 text-2xl">
+          <Link to={"https://www.instagram.com/beingbadguy"}>
+            <FaInstagram className="text-red-400 cursor-pointer hover:text-red-700 duration-300 transition-all" />
+          </Link>
+          <Link to={"https://github.com/beingbadguy"}>
+            <FaGithub className="text-neutral-800 cursor-pointer hover:text-slate-700 duration-300 transition-all" />
+          </Link>
         </div>
-        <div>
-          <p className="font-bold">About lenny</p>
-          <ul>
-            <li>Information</li>
-            <li>Store lactor</li>
-            <li>Bulk Purchase</li>
-            <li>Alteration services</li>
-          </ul>
-        </div>
-        <div>
-          <p className="font-bold">About lenny</p>
-          <ul>
-            <li>Information</li>
-            <li>Store lactor</li>
-            <li>Bulk Purchase</li>
-            <li>Alteration services</li>
-          </ul>
-        </div>
-        <div>
-          <p className="font-bold">About lenny</p>
-          <ul>
-            <li>Information</li>
-            <li>Store lactor</li>
-            <li>Bulk Purchase</li>
-            <li>Alteration services</li>
-          </ul>
+
+        <div className="text-sm flex justify-between gap-3 flex-col sm:flex-row">
+          <div>All Rights Reserved. </div>
+          <div>Terms & Conditions</div>
+          <div className="font-medium">@2024 Amy.</div>
         </div>
       </div>
     </div>

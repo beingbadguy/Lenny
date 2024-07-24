@@ -65,7 +65,7 @@ const Sign = () => {
       <div className="flex justify-center items-center">
         <CgShoppingBag className="text-green-700 text-3xl" />
         <Link to="/">
-          <h2 className={`font-bold sm:text-2xl ml-2 `}>Lenny.</h2>
+          <h2 className={`font-bold sm:text-2xl ml-2 `}>Amy.</h2>
         </Link>
       </div>
       <p className="mt-3 text-sm px-4 w-full flex items-center justify-center">
