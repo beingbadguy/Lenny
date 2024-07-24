@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import {
+  arrayRemove,
   arrayUnion,
   collection,
   doc,
@@ -8,9 +9,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
-import { InfinitySpin } from "react-loader-spinner";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 
 export const MasterContext = createContext();
 
@@ -47,7 +46,6 @@ const MasterProvider = ({ children }) => {
       setFav(userNew.favourites);
 
       const response = fav.some((item) => item.id === product.id);
-      console.log(response);
       if (response) {
         return;
       } else {
@@ -61,33 +59,88 @@ const MasterProvider = ({ children }) => {
     }
   };
 
-  const addToCart = async (product) => {
-    // console.log(product);
+  const deleteFromFav = async (product) => {
     if (!user) {
-      // alert("Please sign in to add items to your cart");
+      alert("Please login first");
+      return;
+    }
+    const collectionRef = doc(db, "users", user.userId);
+
+    try {
+      const snapshot = await getDoc(collectionRef);
+
+      if (snapshot.exists()) {
+        const userData = snapshot.data();
+        const favourites = userData.favourites || [];
+
+        const updatedFavourites = favourites.filter(
+          (item) => item.id !== product.id
+        );
+
+        await updateDoc(collectionRef, {
+          favourites: updatedFavourites,
+        });
+
+        setFav(updatedFavourites);
+
+        console.log("Item successfully removed from Firestore and local state");
+      } else {
+        console.log("No such document!");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const addToCart = async (product) => {
+    if (!user) {
+      alert("Please sign in to add items to your cart");
       return;
     }
     try {
       const collectionRef = doc(db, "users", user.userId);
       const userDoc = await getDoc(collectionRef);
-      const userNew = userDoc.data();
-      setCart(userNew.carts);
 
-      const response = cart.filter((item) => {
-        item.name.includes(product.name);
-      });
-      console.log(response.length);
-
-      if (response.length > 0) {
-        console.log("already Exists in Cart");
-      } else {
-        await updateDoc(collectionRef, {
-          carts: arrayUnion({ ...product }),
+      if (userDoc.exists()) {
+        const userNew = userDoc.data();
+        const userCarts = userNew.carts || [];
+        const response = userCarts.findIndex((item) => {
+          return (
+            item.name === product.name && item.location === product.location
+          );
         });
-        setCart((prevCart) => [...prevCart, product]);
-        console.log(cart);
-        window.location.reload();
+
+        const thatProduct = products.find((item) => {
+          return (
+            item.name === product.name && item.location === product.location
+          );
+        });
+
+        if (response === -1) {
+          const newCart = [
+            ...userCarts,
+            {
+              ...product,
+              quantity: 1,
+              itemtotalPrice: thatProduct.price * (thatProduct.quantity || 1),
+            },
+          ];
+          await updateDoc(collectionRef, { carts: newCart });
+          setCart(newCart);
+        } else {
+          const updatedCart = [...userCarts];
+          updatedCart[response] = {
+            ...updatedCart[response],
+            quantity: updatedCart[response].quantity + 1,
+            itemtotalPrice:
+              thatProduct.price * (userCarts[response].quantity + 1),
+          };
+
+          await updateDoc(collectionRef, { carts: updatedCart });
+          setCart(updatedCart);
+        }
       }
+      // console.log(cart);
     } catch (error) {
       console.log(error.message);
     }
@@ -130,6 +183,43 @@ const MasterProvider = ({ children }) => {
     }
   };
 
+  const cartRemove = async (product) => {
+    // console.log(product);
+    if (!user) {
+      alert("Please login first");
+      return;
+    }
+
+    const docRef = doc(db, "users", user.userId);
+    try {
+      const userDoc = await getDoc(docRef);
+      if (!userDoc.exists()) {
+        console.error("User document does not exist");
+        return;
+      }
+
+      const userData = userDoc.data();
+      const cartItems = userData.carts || [];
+
+      const itemRemove = cartItems.find((item) => item.name === product.name);
+      // console.log(itemRemove);
+
+      if (itemRemove) {
+        await updateDoc(docRef, {
+          carts: arrayRemove(itemRemove),
+        });
+
+        setCart((prevCart) =>
+          prevCart.filter((item) => item.name !== product.name)
+        );
+      }
+
+      // console.log(cart);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -147,6 +237,9 @@ const MasterProvider = ({ children }) => {
         addToFavourites,
         addToCart,
         cart,
+        setCart,
+        deleteFromFav,
+        cartRemove,
       }}
     >
       {children}

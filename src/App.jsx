@@ -43,11 +43,11 @@ const App = () => {
 
   return (
     <div className="min-h-[75vh] select-none">
-      <div className="flex items-center justify-center mt-10  flex-col sm:mt-0 sm:flex-col ">
+      <div className="flex items-center justify-center mt-1  flex-col sm:mt-0 sm:flex-col ">
         <img
           src="https://img.freepik.com/premium-photo/eyeglasses-isolated-white-background-handmade-eyewear-spectacles-with-shiny-stainless-frame_149453-281.jpg?w=1480"
           alt=""
-          className="h-72"
+          className="h-60 md:h-72"
         />
         <div className="p-4 flex flex-col gap-4 w-full justify-center items-center  ">
           <h1 className="text-2xl md:text-5xl font-bold text-black text-center">

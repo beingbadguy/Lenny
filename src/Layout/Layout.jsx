@@ -10,7 +10,7 @@ import { MasterContext } from "../context/Context";
 import { IoCloseOutline } from "react-icons/io5";
 
 const Layout = () => {
-  const { products, user } = useContext(MasterContext);
+  const { products, user, fav, cart } = useContext(MasterContext);
   const [query, setQuery] = useState("");
   const [show, setShow] = useState(true);
   const [search, setSearch] = useState(false);
@@ -56,7 +56,7 @@ const Layout = () => {
             <CiSearch className=" text-3xl hidden md:block  cursor-pointer" />
 
             {query.length > 0 && show ? (
-              <div className="absolute top-12 left-0 min-w-[200px] sm:left-[-80px]   sm:min-w-[380px]  md:min-w-[410px]  lg:w-[580px]  bg-neutral-100 duration-500 transition-all rounded-b-md  z-[9999]  overflow-y-scroll  h-[370px] md:max-h-[370px]  border border-black-2 ">
+              <div className="absolute top-12 left-0 min-w-[200px] sm:left-[-80px]   sm:min-w-[380px]  md:min-w-[410px]  lg:w-[580px]  bg-neutral-100 duration-500 transition-all rounded-b-md  z-[9999]  overflow-y-scroll  h-[260px] md:max-h-[370px]  border border-black-2 ">
                 <div className="flex flex-col gap-4 ">
                   {newArr &&
                     newArr.map((item, index) => (
@@ -107,13 +107,20 @@ const Layout = () => {
             />
           )}
 
-          <Link to="/cart">
+          <Link to="/cart" className="relative">
             <CiBag1 className="text-2xl sm:text-3xl cursor-pointer" />
+            {user ? (
+              <p className="text-green-600 text-[10px] absolute top-[-3px] right-0 rounded bg-white">
+                {cart.length}
+              </p>
+            ) : (
+              ""
+            )}
           </Link>
-          <Link to="/wish" className="hidden md:block">
+          <Link to="/wish" className="">
             <CiHeart className=" text-2xl sm:text-3xl cursor-pointer" />
           </Link>
-          <Link to="/user">
+          <Link to="/user" className="">
             <IoPersonCircle className="text-2xl sm:text-3xl cursor-pointer" />
           </Link>
           {user && user.role === "admin" ? (

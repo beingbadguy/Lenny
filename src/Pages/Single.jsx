@@ -94,10 +94,13 @@ const Single = () => {
                     cart &&
                     cart.some((item) => item?.name === product?.name)
                   ) {
-                    navigate(`/cart`);
+                    // navigate(`/cart`);
                   } else {
-                    addToCart(product);
+                    // addToCart(product);
+                    // navigate(`/cart`);
                   }
+                    addToCart(product);
+
                 }}
               >
                 <CiShoppingCart className="text-2xl" />

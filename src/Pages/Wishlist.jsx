@@ -6,23 +6,37 @@ import { MasterContext } from "../context/Context";
 import { IoIosArrowRoundBack } from "react-icons/io";
 
 const Wishlist = () => {
-  const { fav, user } = useContext(MasterContext);
-  console.log(fav);
+  const { fav, user, deleteFromFav } = useContext(MasterContext);
+  // console.log(fav);
   return (
     <div className="min-h-[70vh] select-none ">
       <div className="bg-neutral-200 pt-5 px-6 min-h-[30vh]">
         <p className="flex items-center  text-[12px] sm:text-md md:text-lg   text-green-500 font-medium">
           <Link to="/">Home</Link> <MdChevronRight />
-          <span className="text-black">cart</span>
+          <span className="text-black">wishlist</span>
         </p>
         <div className="mt-10">
           <p className="text-2xl font-bold">Wishlist</p>
           <p className="mt-2">Showing your Favourites</p>
         </div>
       </div>
+
+      {fav.length === 0 ? (
+        <div className="flex justify-center items-center pt-20 text-center mx-6 text-red-400">
+          <p>You do not have anything in your wishlist at this moment...</p>
+        </div>
+      ) : (
+        ""
+      )}
       <div>
         {user ? (
-          <div className="shadow-md mx-auto w-[90%] sm:w-[80%] mt-[-5vh] bg-white rounded-lg border mb-20">
+          <div
+            className={`${
+              fav.length === 0
+                ? "hidden"
+                : "shadow-md mx-auto w-[90%] sm:w-[80%] mt-[-5vh] bg-white rounded-lg border mb-20"
+            } `}
+          >
             {fav &&
               fav.map((item, index) => (
                 <div
@@ -48,7 +62,11 @@ const Wishlist = () => {
                     </div>
                   </Link>
 
-                  <div>
+                  <div
+                    onClick={() => {
+                      deleteFromFav(item);
+                    }}
+                  >
                     <RiDeleteBin5Line className="text-4xl border p-2 rounded cursor-pointer hover:text-red-400 hover:border-red-500 transition-all duration-300" />
                   </div>
                 </div>

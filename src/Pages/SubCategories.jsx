@@ -16,12 +16,12 @@ const SubCategories = () => {
   }, []);
   return (
     <div className="px-6 min-h-[65vh] mb-10 select-none">
-      <div className="mt-2">
-        <Slider />
-      </div>
       <div className="flex items-center justify-between">
         <h1 className="font-extrabold my-5">Discover Products</h1>
         <TiArrowSortedDown />
+      </div>
+      <div className="mt-2">
+        <Slider />
       </div>
 
       <div>
