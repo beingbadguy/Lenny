@@ -153,9 +153,9 @@ const Layout = () => {
           <Link to={"https://www.instagram.com/beingbadguy"}>
             <FaInstagram className="text-red-400 cursor-pointer hover:text-red-700 duration-300 transition-all" />
           </Link>
-          <Link to={"https://github.com/beingbadguy"}>
+          {/* <Link to={"https://github.com/beingbadguy"}>
             <FaGithub className="text-neutral-800 cursor-pointer hover:text-slate-700 duration-300 transition-all" />
-          </Link>
+          </Link> */}
         </div>
 
         <div className="text-sm flex justify-between gap-3 flex-col sm:flex-row">

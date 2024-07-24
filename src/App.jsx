@@ -26,6 +26,8 @@ import { FaCarrot } from "react-icons/fa6";
 import { GiWoodBeam } from "react-icons/gi";
 import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./config/firebase";
+import Faq from "./components/Faq";
+import Testimonial from "./components/Testimonial";
 
 const App = () => {
   const { fetchProducts, products, user, fav, setFav, addToFavourites } =
@@ -178,11 +180,11 @@ const App = () => {
       </div>
 
       {/* products  */}
-      <div className="mt-10 mb-10  flex items-start justify-center flex-col">
+      <div className="mt-10   flex items-start justify-center flex-col">
         <h1 className="text-4xl font-bold text-center mx-10">
           Popular Products on Amy.
         </h1>
-        <div className=" grid grid-cols-2  sm:grid-cols-3  md:grid-cols-4 mb-20  lg:grid-cols-5 gap-4 px-6 mt-4">
+        <div className=" grid grid-cols-2  sm:grid-cols-3  md:grid-cols-4 mb-5  lg:grid-cols-5 gap-4 px-6 mt-4">
           {products &&
             productsNew.map((product, index) => (
               <div key={index} className="flex flex-col items-start ">
@@ -232,9 +234,57 @@ const App = () => {
         </div>
       </div>
 
+      {/* faq  */}
+      <div className="flex items-center justify-center md:justify-around mt-6 flex-col mb-20 md:flex-row">
+        <div className=" md:block ml-5 md:ml-0 ">
+          <h1 className="text-3xl">Some Hot Burning Question?</h1>
+        </div>
+        <div className="ml-5 mr-5 my-5 flex flex-col gap-4">
+          <Faq
+            q={"Do you offer international shipping?"}
+            a={
+              " yes, we offer international shipping to many countries. Shipping costs and delivery times vary based on the destination. "
+            }
+          />
+          <Faq
+            q={"How do I change or cancel my order?"}
+            a={
+              " If you need to change or cancel your order, please contact our customer service team as soon as possible."
+            }
+          />
+          <Faq
+            q={"What is your return and exchange policy?"}
+            a={
+              "We offer a 30-day return policy for most items. To be eligible for a return or exchange, the item must be in its original condition and packaging. "
+            }
+          />{" "}
+          <Faq
+            q={"How can I track my order?"}
+            a={
+              " Once your order has been shipped, you will receive a confirmation email with a tracking number and a link to track your shipment."
+            }
+          />
+        </div>
+      </div>
+
+      {/* testimonials  */}
+
+      <div className="mx-10  mt-10 mb-20">
+        <h1 className="text-3xl md:ml-0 my-3 mb-10">
+          What people think about us?
+        </h1>
+        <div className="flex flex-wrap  justify-center items-center gap-5  ">
+          <Testimonial />
+          <Testimonial />
+          <Testimonial />
+          <Testimonial />
+          <Testimonial />
+        </div>
+      </div>
+
       {/* banner
        */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 bg-green-100 items-center justify-items-center mb-20 gap-4 px-10 py-4 ">
+      <div className=" grid-cols-1 sm:grid-cols-2 bg-green-100 items-center justify-items-center mb-20 gap-4 px-10 py-4 hidden">
         <div className=" ">
           <img
             src="./watch.png"

@@ -109,6 +109,7 @@ const Cart = () => {
         });
         setCart([]);
         setOrderid(newOrder.id);
+        navigate("/order");
 
         try {
           const result = await emailjs.send(
@@ -128,7 +129,6 @@ const Cart = () => {
           );
 
           console.log("SUCCESS!");
-          navigate("/order");
         } catch (error) {
           console.log("FAILED...", error.text);
         }
