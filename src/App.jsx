@@ -70,7 +70,7 @@ const App = () => {
 
             <Link to={"/subcategories"}>
               <Button
-                text="Explore More"
+                text="Explore All"
                 clr="text-black"
                 bgclr="border border-green-500 w-[320px] sm:w-[240px]"
               />

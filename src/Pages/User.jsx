@@ -55,7 +55,7 @@ const User = () => {
   }, []);
 
   return (
-    <div className=" min-h-[75vh] w-full  select-none  pt-4">
+    <div className=" min-h-[75vh] w-full  select-none  ">
       <div className="bg-neutral-200 pt-5 px-6 min-h-[30vh]">
         <p className="flex items-center  text-[12px] sm:text-md md:text-lg   text-green-500 font-medium">
           <Link to="/">Home</Link> <MdChevronRight />

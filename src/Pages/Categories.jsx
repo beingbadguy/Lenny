@@ -36,13 +36,13 @@ const Categories = () => {
         <p className="font-medium">{category_name}</p>
       </div>
 
-      <div className="bg-yellow-500 mx-auto h-[100px] md:h-[170px] mt-6 rounded grid grid-cols-2">
+      <div className="bg-yellow-500 mx-auto min-h-[100px] md:h-[170px] mt-6 rounded grid grid-cols-2">
         <img src="../guitar.png" alt="" className="h-20 md:h-32" />
         <div>
           <h1 className="p-6 text-sm sm:text-md md:text-4xl font-bold">
             Best Deals on {category_name}
           </h1>
-          <p className="hidden sm:block md:px-1 sm:tracking-[2px] lg:tracking-[6px]  mx-6">
+          <p className="hidden md:px-1 sm:block md:block lg:tracking-[6px]   mx-6">
             Grab the deal as soon as possible.
           </p>
         </div>
@@ -67,11 +67,11 @@ const Categories = () => {
                     <div
                       className="absolute top-3 right-3 bg-white h-8 w-8 flex justify-center items-center rounded-full cursor-pointer"
                       onClick={() => {
-                         if (user) {
-                           addToFavourites(product);
-                         } else {
-                           navigate("/user");
-                         }
+                        if (user) {
+                          addToFavourites(product);
+                        } else {
+                          navigate("/user");
+                        }
                       }}
                     >
                       <FaRegHeart

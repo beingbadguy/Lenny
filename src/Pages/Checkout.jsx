@@ -20,6 +20,7 @@ import { IoLocationSharp } from "react-icons/io5";
 import { IoIosAdd } from "react-icons/io";
 import { InfinitySpin } from "react-loader-spinner";
 import { MdLocalPhone } from "react-icons/md";
+import emailjs from "@emailjs/browser";
 
 const Cart = () => {
   const { cart, user, cartRemove, setCart, products, orderid, setOrderid } =
@@ -108,8 +109,30 @@ const Cart = () => {
         });
         setCart([]);
         setOrderid(newOrder.id);
+
+        try {
+          const result = await emailjs.send(
+            "service_ugepisv",
+            "template_yvqxjcj",
+            {
+              to_name: user.name, // Recipient's name
+              to_email: user.email, // Recipient's email
+              order_id: newOrder.id, // Order ID
+              user_name: user.name, // User's name
+              items: userCart
+                .map((item) => `${item.name} x ${item.quantity}`)
+                .join(", "), // Ordered items
+              total_amount: total, // Total amount of the order
+            },
+            "zLljRj_R-BGFHqpth"
+          );
+
+          console.log("SUCCESS!");
+          navigate("/order");
+        } catch (error) {
+          console.log("FAILED...", error.text);
+        }
       }
-      navigate("/order");
     } catch (error) {
       console.log(error.message);
     }

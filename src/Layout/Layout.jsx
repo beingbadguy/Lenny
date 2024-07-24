@@ -119,7 +119,7 @@ const Layout = () => {
               ""
             )}
           </Link>
-          <Link to="/wish" className="">
+          <Link to="/wish" className={`${search ? "hidden" : ""}`}>
             <CiHeart className=" text-2xl sm:text-3xl cursor-pointer" />
           </Link>
           <Link to="/user" className="">
