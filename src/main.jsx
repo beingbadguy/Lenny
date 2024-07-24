@@ -17,6 +17,7 @@ import Single from "./Pages/Single.jsx";
 import SubCategories from "./Pages/SubCategories.jsx";
 import Login from "./Pages/Login.jsx";
 import Sign from "./Pages/Sign.jsx";
+import Checkout from "./Pages/Checkout.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: "/product/:id",
         element: <Single />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />,
       },
 
       {

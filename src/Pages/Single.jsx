@@ -77,7 +77,8 @@ const Single = () => {
             <div className="flex gap-5 font-medium mt-8 md:mt-10">
               <div
                 onClick={() => {
-                  console.log("Working on this functionality", product.id);
+                  alert("Working on this functionality");
+                  navigate("/login");
                 }}
               >
                 <Button
@@ -90,17 +91,20 @@ const Single = () => {
               <div
                 className="flex items-center justify-center w-[200px] border border-green-600 rounded text-green-600 hover:scale-90 transition-all duration-500"
                 onClick={() => {
-                  if (
-                    cart &&
-                    cart.some((item) => item?.name === product?.name)
-                  ) {
-                    // navigate(`/cart`);
+                  if (!user) {
+                    return navigate("/login");
                   } else {
-                    // addToCart(product);
-                    // navigate(`/cart`);
+                    if (
+                      cart &&
+                      cart.some((item) => item?.name === product?.name)
+                    ) {
+                      addToCart(product);
+                      navigate(`/cart`);
+                    } else {
+                      addToCart(product);
+                      navigate(`/cart`);  
+                    }
                   }
-                    addToCart(product);
-
                 }}
               >
                 <CiShoppingCart className="text-2xl" />

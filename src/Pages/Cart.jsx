@@ -182,7 +182,7 @@ const Cart = () => {
                   Total Price : <span>₹{total}</span>
                 </p>
                 <p className="flex items-center justify-between">
-                  Tax $ Fee Price : <span>₹{total}</span>
+                  Tax & Fee Price : <span>₹0</span>
                 </p>
               </div>
               <hr />
@@ -191,7 +191,9 @@ const Cart = () => {
                   Grand Price : <span>₹{total}</span>
                 </p>
               </div>
-              <Button clr="bg-green-600 text-white" text="Checkout" />
+              <Link to={"/checkout"}>
+                <Button clr="bg-green-600 text-white" text="Checkout" />
+              </Link>
             </div>
           </div>
         ) : (

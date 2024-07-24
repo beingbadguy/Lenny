@@ -56,7 +56,7 @@ const Layout = () => {
             <CiSearch className=" text-3xl hidden md:block  cursor-pointer" />
 
             {query.length > 0 && show ? (
-              <div className="absolute top-12 left-0 min-w-[200px] sm:left-[-80px]   sm:min-w-[380px]  md:min-w-[410px]  lg:w-[580px]  bg-neutral-100 duration-500 transition-all rounded-b-md  z-[9999]  overflow-y-scroll  h-[260px] md:max-h-[370px]  border border-black-2 ">
+              <div className="absolute top-12 left-0 min-w-[200px] sm:left-[-80px]   sm:min-w-[380px]  md:min-w-[410px]  lg:w-[580px]  bg-neutral-100 duration-500 transition-all rounded-b-md  z-[9999]  overflow-y-scroll  max-h-[260px] md:max-h-[370px]  border border-black-2 ">
                 <div className="flex flex-col gap-4 ">
                   {newArr &&
                     newArr.map((item, index) => (
