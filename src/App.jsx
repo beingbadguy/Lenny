@@ -81,8 +81,15 @@ const App = () => {
           {/* <h1 className="font-bold text-7xl tracking-[10px] ">Amy.</h1> */}
         </div>
       </div>
+      <div className="flex justify-center items-center "> 
+        <img
+          src="https://img.icons8.com/?size=100&id=60662&format=png&color=000000"
+          alt=""
+          className="h-10 pt-5"
+        />
+      </div>
 
-      <div className="flex justify-center items-center mt-10  rounded-xl mx-2">
+      <div className="flex justify-center items-center mt-10 sm:mt-20  rounded-xl mx-2">
         <video
           src="./myVid.mp4"
           className="w-full rounded-xl"
