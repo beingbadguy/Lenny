@@ -28,6 +28,7 @@ import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./config/firebase";
 import Faq from "./components/Faq";
 import Testimonial from "./components/Testimonial";
+import { FaCarAlt } from "react-icons/fa";
 
 const App = () => {
   const { fetchProducts, products, user, fav, setFav, addToFavourites } =
@@ -81,7 +82,7 @@ const App = () => {
           {/* <h1 className="font-bold text-7xl tracking-[10px] ">Amy.</h1> */}
         </div>
       </div>
-      <div className="flex justify-center items-center "> 
+      <div className="flex justify-center items-center ">
         <img
           src="https://img.icons8.com/?size=100&id=60662&format=png&color=000000"
           alt=""
@@ -126,11 +127,11 @@ const App = () => {
               icon={<IoShirt className="text-2xl text-green-700" />}
             />
           </Link>
-          <Link to={`/categories/books`}>
+          <Link to={`/categories/automotive`}>
             <CategoryBox
-              type="Books"
+              type="Automotive"
               no="30 items"
-              icon={<FaBookOpen className="text-2xl text-green-700" />}
+              icon={<FaCarAlt className="text-2xl text-green-700" />}
             />
           </Link>
           <Link to={`/categories/toys-games`}>
