@@ -92,7 +92,7 @@ const App = () => {
       <div className="flex justify-center items-center mt-10 sm:mt-20  rounded-xl mx-2">
         <video
           src="./myVid.mp4"
-          className="w-full rounded-xl"
+          className="w-full rounded-xl sm:h-[900px] object-center object-cover "
           loop
           autoPlay
           muted
