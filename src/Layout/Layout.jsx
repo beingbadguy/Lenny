@@ -93,7 +93,7 @@ const Layout = () => {
         <div className="flex justify-center items-center gap-1 md:gap-3 ">
           {search ? (
             <IoCloseOutline
-              className="text-2xl sm:hidden "
+              className="text-3xl sm:hidden  "
               onClick={() => {
                 setSearch(false);
                 setQuery("");
@@ -123,7 +123,17 @@ const Layout = () => {
             <CiHeart className=" text-2xl sm:text-3xl cursor-pointer" />
           </Link>
           <Link to="/user" className="">
-            <IoPersonCircle className="text-2xl sm:text-3xl cursor-pointer" />
+            {user && user ? (
+              <div className="rounded-full overflow-hidden">
+                <img
+                  src="https://cdn.pixabay.com/photo/2023/04/30/04/29/anime-7959691_960_720.jpg"
+                  alt=""
+                  className="h-7 w-7   sm:min-h-8 sm:max-h-8 sm:h-8 sm:min-w-8 object-cover rounded-full border-2 border-green-400"
+                />
+              </div>
+            ) : (
+              <IoPersonCircle className="text-2xl  sm:text-3xl cursor-pointer" />
+            )}
           </Link>
           {user && user.role === "admin" ? (
             <Link to="/dashboard" className="hidden md:block">

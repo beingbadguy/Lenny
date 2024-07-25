@@ -21,8 +21,8 @@ const Wishlist = () => {
         </div>
       </div>
 
-      {fav.length === 0 ? (
-        <div className="flex justify-center items-center pt-20 text-center mx-6 text-red-400">
+      {fav.length === 0 && user ? (
+        <div className="flex justify-center items-center pt-20 text-center mx-6 text-red-400 font-bold">
           <p>You do not have anything in your wishlist at this moment...</p>
         </div>
       ) : (
@@ -73,7 +73,7 @@ const Wishlist = () => {
               ))}
           </div>
         ) : (
-          <div className="flex justify-center items-center mt-20 flex-col gap-4 ">
+          <div className="flex justify-center items-center mt-20 flex-col gap-4 mb-20 ">
             <p className="text-green-600 w-[300px] text-center">
               You Have to sign in or create an account to view your Favourite.
             </p>

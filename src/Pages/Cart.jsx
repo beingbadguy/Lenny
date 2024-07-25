@@ -42,6 +42,7 @@ const Cart = () => {
       setCart(updatedItem);
     }
   };
+
   const decrement = async (item) => {
     const collectionRef = doc(db, "users", user.userId);
     const data = await getDoc(collectionRef);
@@ -94,8 +95,8 @@ const Cart = () => {
         </div>
       </div>
 
-      {cart.length === 0 ? (
-        <div className="flex justify-center items-center pt-20 text-center mx-6 text-red-400">
+      {cart.length === 0 && user ? (
+        <div className="flex justify-center items-center pt-20 text-center mx-6 text-red-400 font-bold">
           <p>You do not have anything in your cart at this moment...</p>
         </div>
       ) : (
@@ -197,7 +198,7 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <div className="flex justify-center items-center mt-20 flex-col gap-4 ">
+          <div className="flex justify-center items-center mt-20 flex-col gap-4 mb-20 ">
             <p className="text-green-600 w-[300px] text-center">
               You Have to sign in or create an account to view your cart.
             </p>

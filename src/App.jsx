@@ -37,7 +37,7 @@ const App = () => {
   });
   const navigate = useNavigate();
 
-  const productsNew = products.slice(0, 6);
+  const productsNew = products.slice(0, 12);
 
   useEffect(() => {
     fetchProducts();
@@ -80,6 +80,16 @@ const App = () => {
           </div>
           {/* <h1 className="font-bold text-7xl tracking-[10px] ">Amy.</h1> */}
         </div>
+      </div>
+
+      <div className="flex justify-center items-center mt-10  rounded-xl mx-2">
+        <video
+          src="./myVid.mp4"
+          className="w-full rounded-xl"
+          loop
+          autoPlay
+          muted
+        ></video>
       </div>
 
       {/* section 2 */}
@@ -234,10 +244,25 @@ const App = () => {
         </div>
       </div>
 
+      {/* testimonials  */}
+
+      <div className="mx-4">
+        <h1 className="text-3xl md:ml-0 my-3 mb-10 font-bold">
+          What people think about us?
+        </h1>
+        <div className="flex flex-wrap  justify-center items-center gap-5  ">
+          <Testimonial />
+          <Testimonial />
+          <Testimonial />
+          <Testimonial />
+          <Testimonial />
+        </div>
+      </div>
+
       {/* faq  */}
-      <div className="flex items-center justify-center md:justify-around mt-6 flex-col mb-20 md:flex-row">
+      <div className="flex items-center justify-center md:justify-around mt-6 flex-col mb-10 md:flex-row">
         <div className=" md:block ml-5 md:ml-0 ">
-          <h1 className="text-3xl">Some Hot Burning Question?</h1>
+          <h1 className="text-3xl font-bold">Some Hot Burning Question?</h1>
         </div>
         <div className="ml-5 mr-5 my-5 flex flex-col gap-4">
           <Faq
@@ -264,21 +289,6 @@ const App = () => {
               " Once your order has been shipped, you will receive a confirmation email with a tracking number and a link to track your shipment."
             }
           />
-        </div>
-      </div>
-
-      {/* testimonials  */}
-
-      <div className="mx-10  mt-10 mb-20">
-        <h1 className="text-3xl md:ml-0 my-3 mb-10">
-          What people think about us?
-        </h1>
-        <div className="flex flex-wrap  justify-center items-center gap-5  ">
-          <Testimonial />
-          <Testimonial />
-          <Testimonial />
-          <Testimonial />
-          <Testimonial />
         </div>
       </div>
 

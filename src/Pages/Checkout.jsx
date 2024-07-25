@@ -29,6 +29,7 @@ const Cart = () => {
   const [add, setAddress] = useState();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [cartLoader, setCartLoader] = useState(false);
 
   const [form, setForm] = useState({
     address: "",
@@ -86,6 +87,7 @@ const Cart = () => {
     }
 
     try {
+      setCartLoader(true);
       const colRef = doc(db, "users", user.userId);
       const snapshot = await getDoc(colRef);
       if (snapshot.exists()) {
@@ -109,7 +111,6 @@ const Cart = () => {
         });
         setCart([]);
         setOrderid(newOrder.id);
-        navigate("/order");
 
         try {
           const result = await emailjs.send(
@@ -127,6 +128,9 @@ const Cart = () => {
             },
             "zLljRj_R-BGFHqpth"
           );
+          navigate("/order");
+
+          setCartLoader(false);
 
           console.log("SUCCESS!");
         } catch (error) {
@@ -150,10 +154,26 @@ const Cart = () => {
   }, [setCart, cart]);
   useEffect(() => {
     window.scrollTo(0, 0);
+    if (!user) {
+      navigate("/login");
+    }
+    if (cart.length === 0) {
+      navigate("/subcategories");
+    }
   }, []);
 
   return (
-    <div className="min-h-[70vh] select-none ">
+    <div className={`  min-h-[70vh] select-none `}>
+      {cartLoader ? (
+        <div className="absolute flex items-center justify-center top-[50%] sm:left-[40%]  left-[25%] md:left-[40%] ">
+          <InfinitySpin
+            visible={true}
+            width="200"
+            color="#4fa94d"
+            ariaLabel="infinity-spin-loading"
+          />
+        </div>
+      ) : null}
       <div className="bg-neutral-200 pt-5 px-6 min-h-[30vh]">
         <div className="flex items-center  text-[12px] sm:text-md md:text-lg   text-green-500 font-medium">
           <Link to="/">Home</Link> <MdChevronRight />
@@ -166,9 +186,11 @@ const Cart = () => {
         </div>
       </div>
 
-      {cart.length === 0 ? (
+      {cart.length === 0 && user ? (
         <div className="flex justify-center items-center pt-20 text-center mx-6 text-red-400">
-          <p>You do not have anything to checkout at this moment...</p>
+          <p className={`${cartLoader ? "hidden" : ""}`}>
+            You do not have anything to checkout at this moment...
+          </p>
         </div>
       ) : (
         ""
@@ -322,7 +344,7 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <div className="flex justify-center items-center mt-20 flex-col gap-4 ">
+          <div className="flex justify-center items-center mt-20 flex-col gap-4 mb-24 ">
             <p className="text-green-600 w-[300px] text-center">
               You Have to sign in or create an account to view your cart.
             </p>

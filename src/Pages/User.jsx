@@ -39,7 +39,7 @@ const User = () => {
     }
   };
 
-  // console.log(orders);
+  console.log(orders);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -98,58 +98,66 @@ const User = () => {
         <p className="font-bold">Your Orders ({orders?.length})</p>
         <div className=" grid gap-4">
           {orders &&
-            orders.map((item, index) => (
-              <div key={index} className="border shadow-md mt-8">
-                <div className="bg-neutral-50 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-4  rounded-md text-sm ">
-                  <div>
-                    <p>
-                      Order ID # <span className="font-medium">{item.id}</span>
-                    </p>
-                  </div>
-                  <div>
-                    <p>Order Date:</p>
-                    <p>23 March</p>
-                  </div>
-                  <div>
-                    <p
-                      className={`${
-                        item.status === "unfullfilled"
-                          ? "bg-orange-200"
-                          : "bg-green-400"
-                      } p-1 rounded-3xl w-[100px] flex justify-center items-center`}
-                    >
-                      {item.status}
-                    </p>
-                  </div>
-                  <div>
-                    <p>Total</p>
-                    <p className="font-bold text-green-500">₹{item.amount}</p>
-                  </div>
-                </div>
-                <div className="mt-4 mx-4 grid grid-cols-1 gap-5 mb-5">
-                  {item.items.map((product, index) => (
-                    <div key={index} className="grid grid-cols-2">
-                      <div className="bg-neutral-200 h-28 w-28 flex justify-center items-center rounded-sm">
-                        <img
-                          src={product.images}
-                          alt=""
-                          className="h-20 w-20"
-                        />
-                      </div>
-                      <div className="text-sm flex flex-col gap-2">
-                        <p className="font-bold">{product.name}</p>
-                        <p>Quantity: {product.quantity}</p>
-                        <p>
-                          <span className="font-medium text-green-500">
-                            ₹{product.price * product.quantity}
-                          </span>
-                        </p>
-                      </div>
+            orders.map((item, index) => {
+              const timeCreate =
+                item.createdAt.seconds*1000 + item.createdAt.nanoseconds / 1000000;
+              const date = new Date(timeCreate);
+              const finalDate = date.toLocaleString();
+
+              return (
+                <div key={index} className="border shadow-md mt-8">
+                  <div className="bg-neutral-50 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-4  rounded-md text-sm ">
+                    <div>
+                      <p>
+                        Order ID #{" "}
+                        <span className="font-medium">{item.id}</span>
+                      </p>
                     </div>
-                  ))}
+                    <div>
+                      <p>Order Date:</p>
+                      <p>{finalDate}</p>
+                    </div>
+                    <div>
+                      <p
+                        className={`${
+                          item.status === "unfullfilled"
+                            ? "bg-orange-200"
+                            : "bg-green-400"
+                        } p-1 rounded-3xl w-[100px] flex justify-center items-center`}
+                      >
+                        {item.status}
+                      </p>
+                    </div>
+                    <div>
+                      <p>Total</p>
+                      <p className="font-bold text-green-500">₹{item.amount}</p>
+                    </div>
+                  </div>
+                  <div className="mt-4 mx-4 grid grid-cols-1 gap-5 mb-5">
+                    {item.items.map((product, index) => (
+                      <div key={index} className="grid grid-cols-2">
+                        <div className="bg-neutral-200 h-28 w-28 flex justify-center items-center rounded-sm">
+                          <img
+                            src={product.images}
+                            alt=""
+                            className="h-20 w-20"
+                          />
+                        </div>
+                        <div className="text-sm flex flex-col gap-2">
+                          <p className="font-bold">{product.name}</p>
+                          <p>Quantity: {product.quantity}</p>
+                          <p>
+                            <span className="font-medium text-green-500">
+                              ₹{product.price * product.quantity}
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
         </div>
       </div>
     </div>

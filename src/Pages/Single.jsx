@@ -77,8 +77,8 @@ const Single = () => {
             <div className="flex gap-5 font-medium mt-8 md:mt-10">
               <div
                 onClick={() => {
-                  alert("Working on this functionality");
-                  navigate("/login");
+                  addToCart(product);
+                  navigate("/cart");
                 }}
               >
                 <Button
@@ -102,7 +102,6 @@ const Single = () => {
                       navigate(`/cart`);
                     } else {
                       addToCart(product);
-                      navigate(`/cart`);  
                     }
                   }
                 }}

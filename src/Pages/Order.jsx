@@ -12,6 +12,11 @@ const Order = () => {
     window.scrollTo(0, 0);
     if (!user) {
       navigate("/login");
+      return;
+    }
+    if (orderid == null) {
+      navigate("/cart");
+
     }
   }, []);
 
