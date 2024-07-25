@@ -151,6 +151,8 @@ const Dashboard = () => {
               }}
               className="border-black border rounded px-2 py-1 outline-green-500"
             >
+              <option>Choose from here</option>
+
               <option value="fashion">Fashion</option>
               <option value="electronics">Electronics</option>
               <option value="home-kitchen">Home & Kitchen</option>
