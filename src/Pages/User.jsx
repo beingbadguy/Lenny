@@ -39,7 +39,7 @@ const User = () => {
     }
   };
 
-  console.log(orders);
+  // console.log(orders);
 
   useEffect(() => {
     window.scrollTo(0, 0);
