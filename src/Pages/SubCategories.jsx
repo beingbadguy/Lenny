@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { MasterContext } from "../context/Context";
 import { Link } from "react-router-dom";
 import { TiArrowSortedDown } from "react-icons/ti";
+import { MdChevronRight } from "react-icons/md";
 import Slider from "../components/Slider";
 
 const SubCategories = () => {
@@ -16,12 +17,22 @@ const SubCategories = () => {
   }, []);
   return (
     <div className="px-6 min-h-[65vh] mb-10 select-none">
+      <div className="flex items-center gap-1  text-[12px] sm:text-md md:text-xl mt-4">
+        <Link to={"/"} className="text-green-600">
+          <p>Home</p>
+        </Link>
+        <MdChevronRight />
+        <Link to={"/subcategories"} className="text-black">
+          <p>Categories</p>
+        </Link>
+      </div>
+      <div className="mt-4">
+        <Slider />
+      </div>
+
       <div className="flex items-center justify-between">
         <h1 className="font-extrabold my-5">Discover Products</h1>
         <TiArrowSortedDown />
-      </div>
-      <div className="mt-2">
-        <Slider />
       </div>
 
       <div>
