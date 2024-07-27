@@ -235,16 +235,14 @@ const App = () => {
                     />
                   </div>
                 </div>
-                <Link to={`product/${product.id}`}>
-                  <div className="flex items-start justify-between w-full">
-                    <p className="font-bold text-[12px] md:text-xl w-[80px] md:w-[200px]">
-                      {product.name}
-                    </p>
-                    <p className="font-bold text-green-600 text-[12px] md:text-xl">
-                      ₹{product.price}
-                    </p>
-                  </div>
-                </Link>
+                <div className="flex items-start justify-between w-full">
+                  <p className="font-bold text-[12px] md:text-xl w-[80px] md:w-[200px]">
+                    <Link to={`product/${product.id}`}>{product.name}</Link>
+                  </p>
+                  <p className="font-bold text-green-600 text-[12px] md:text-xl">
+                    ₹{product.price}
+                  </p>
+                </div>
                 <Link to={`product/${product.id}`}>
                   <p className="text-neutral-400 text-[12px] md:text-xl">
                     {product.location}

@@ -50,7 +50,7 @@ const Single = () => {
         <Link to="/">Home</Link> <MdChevronRight />
         <Link to="/subcategories" className="hidden sm:block">
           Categories
-        </Link>{" "}
+        </Link>
         <MdChevronRight className="hidden sm:block" />
         <Link to={`/categories/${product?.category}`}>{product?.category}</Link>
         <MdChevronRight /> <span className="text-black">{product?.name}</span>
@@ -141,13 +141,10 @@ const Single = () => {
           filteredProducts.map((product, index) => (
             <div key={index} className="flex flex-col items-start   ">
               <div className="bg-neutral-200 p-5 rounded relative w-full  ">
-                <Link to={`/product/${product.id}`}>
-                  <img
-                    src={product.images}
-                    className=" h-32 w-32 md:h-48 md:w-48 lg:h-64 lg:w-64 object-contain   hover:scale-90 transition-all duration-300 "
-                  />
-                </Link>
-
+                <img
+                  src={product.images}
+                  className=" h-32 w-32 md:h-48 md:w-48 lg:h-64 lg:w-64 object-contain   hover:scale-90 transition-all duration-300 "
+                />
                 <div
                   className="absolute top-3 right-3 bg-white h-8 w-8 flex justify-center items-center rounded-full cursor-pointer"
                   onClick={() => {
@@ -167,16 +164,14 @@ const Single = () => {
                   />
                 </div>
               </div>
-              <Link to={`/product/${product.id}`}>
-                <div className="flex items-start justify-between w-full">
-                  <p className="font-bold text-[12px] md:text-xl w-[80px] md:w-[200px]">
-                    {product.name}
-                  </p>
-                  <p className="font-bold text-green-600 text-[12px] md:text-xl">
-                    ₹{product.price}
-                  </p>
-                </div>
-              </Link>
+              <div className="flex items-start justify-between w-full">
+                <p className="font-bold text-[12px] md:text-xl w-[80px] md:w-[200px]">
+                  <Link to={`/product/${product.id}`}>{product.name}</Link>
+                </p>
+                <p className="font-bold text-green-600 text-[12px] md:text-xl">
+                  ₹{product.price}
+                </p>
+              </div>
               <Link to={`/product/${product.id}`}>
                 <p className="text-neutral-400 text-[12px] md:text-xl">
                   {product.location}
