@@ -141,10 +141,12 @@ const Single = () => {
           filteredProducts.map((product, index) => (
             <div key={index} className="flex flex-col items-start   ">
               <div className="bg-neutral-200 p-5 rounded relative w-full  ">
-                <img
-                  src={product.images}
-                  className=" h-32 w-32 md:h-48 md:w-48 lg:h-64 lg:w-64 object-contain   hover:scale-90 transition-all duration-300 "
-                />
+                <Link to={`/product/${product.id}`}>
+                  <img
+                    src={product.images}
+                    className=" h-32 w-32 md:h-48 md:w-48 lg:h-64 lg:w-64 object-contain   hover:scale-90 transition-all duration-300 "
+                  />
+                </Link>
                 <div
                   className="absolute top-3 right-3 bg-white h-8 w-8 flex justify-center items-center rounded-full cursor-pointer"
                   onClick={() => {
