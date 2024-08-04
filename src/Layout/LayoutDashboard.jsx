@@ -35,10 +35,14 @@ const LayoutDashboard = () => {
           <HiUsers className="text-2xl" />
           <p className="hidden md:block">Users</p>
         </Link>
+        <Link to="" className="flex items-center gap-2">
+          <HiUsers className="text-2xl" />
+          <p className="hidden md:block">Orders</p>
+        </Link>
       </div>
       <div className=" px-20 md:px-72 ">
         <div className="flex items-center mt-8  justify-between">
-          <h1 className="font-bold text-center text-[15px] md:text-3xl">
+          <h1 className="font-bold text-center text-[15px] md:text-3xl underline">
             Welcome to the dashboard
           </h1>
           <Link to="/" className="absolute right-10 top-8 text-2xl">

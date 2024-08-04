@@ -19,6 +19,11 @@ import Login from "./Pages/Login.jsx";
 import Sign from "./Pages/Sign.jsx";
 import Checkout from "./Pages/Checkout.jsx";
 import Order from "./Pages/Order.jsx";
+
+import { inject } from "@vercel/analytics";
+
+inject();
+
 const router = createBrowserRouter([
   {
     path: "/",
