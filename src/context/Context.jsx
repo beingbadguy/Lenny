@@ -160,6 +160,10 @@ const MasterProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+
+
+  
+
   const fetchProducts = async () => {
     try {
       const products = collection(db, "products");

@@ -64,7 +64,7 @@ const Login = () => {
       <p className="mt-3  text-sm  px-4 w-full flex items-center justify-center">
         Hi, Welcome Back!
       </p>
-      <p className="text-red-400 mt-2 font-medium text-sm pl-8 w-full flex items-center justify-start">
+      <p className="text-red-400 mt-2 font-medium text-sm pl-8  flex items-center justify-start">
         {error}
       </p>
 

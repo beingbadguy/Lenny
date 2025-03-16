@@ -114,8 +114,8 @@ const Cart = () => {
 
         try {
           const result = await emailjs.send(
-            "service_ugepisv",
-            "template_yvqxjcj",
+            "service_74oeq79",
+            "template_sfm8aqg",
             {
               to_name: user.name, // Recipient's name
               to_email: user.email, // Recipient's email
@@ -126,8 +126,9 @@ const Cart = () => {
                 .join(", "), // Ordered items
               total_amount: total, // Total amount of the order
             },
-            "zLljRj_R-BGFHqpth"
+            "fEEiTAM-gDpZhgvt3"
           );
+
           navigate("/order");
 
           setCartLoader(false);
